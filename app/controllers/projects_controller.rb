@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
 	def index
-		render json: {projects: Project.all.to_json(methods: :todos)}
+		render json: Project.all.to_json(methods: :todos)
 
 	end
 
