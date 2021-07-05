@@ -43,6 +43,10 @@ module Oblako
     resource '*', :headers => :any, :methods => [:get, :post, :patch, :options]
       end
     end
+    config.action_dispatch.default_headers = {
+        'Access-Control-Allow-Origin' => '*',
+        'Access-Control-Request-Method' => 'GET, PATCH, PUT, POST, OPTIONS, DELETE'
+    }
 
   end
 end
