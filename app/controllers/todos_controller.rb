@@ -1,14 +1,11 @@
 class TodosController < ApplicationController
 	def create
-		if params[:project_id].present?
-			@project = Project.find(params[:project_id])
-			@project.todos.create(title: params[:todo][:title], is_completed: false)
-			render json: @project.to_json(methods: :todos)
-		else
-			@project = Project.create(title: params[:project][:title])
-			@project.todos.create(title: params[:todo][:title], is_completed: false)
-			render json: @project.to_json(methods: :todos)
+		@project = Project.find_or_create_by!(id: params[:project_id]) do |c|
+    	c.title = params[:project][:title]
 		end
+		@project.todos.create(title: params[:todo][:title], is_completed: false)
+		render json: @project.to_json(methods: :todos)
+		
 	end
 	def update
 		@todo = Todo.find(params[:todo_id])
